@@ -21,7 +21,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 
-const config = require("taxman-cqrs/configDynamo")(appName, contextName);
+const config = require("augmented-cqrs/configDynamo")(appName, contextName);
 
 const globalErrorHandler = function(err, ...args) {
   console.error("globalErrorHandler: ", err, " : args ", args);
@@ -29,17 +29,17 @@ const globalErrorHandler = function(err, ...args) {
 }
 
 function createDomainMsgbus() {
-  const cmdChannel = require("taxman-cqrs/inprocChannel")(require("uuid/v4")());
-  const evtChannel = require("taxman-cqrs/inprocChannel")(require("uuid/v4")());
+  const cmdChannel = require("augmented-cqrs/inprocChannel")(require("uuid/v4")());
+  const evtChannel = require("augmented-cqrs/inprocChannel")(require("uuid/v4")());
 
-  const msgbusCorePromise = require("taxman-cqrs/msgbusCore")(
+  const msgbusCorePromise = require("augmented-cqrs/msgbusCore")(
     globalErrorHandler, {
       cmdChannel, evtChannel
     }
   );
 
   return msgbusCorePromise.then(msgbusCore => {
-    return require("taxman-cqrs/msgbus")(`${appName}.${contextName}`, msgbusCore);
+    return require("augmented-cqrs/msgbus")(`${appName}.${contextName}`, msgbusCore);
   }).catch(err => {
     process.exit(1)
   });
@@ -48,22 +48,22 @@ function createDomainMsgbus() {
 //external context
 /*
 function createSaleMsgbus() {
-  //const cmdChannel = require("taxman-cqrs/redisChannel")(redisConfig);
-  const cmdChannel = require("taxman-cqrs/inprocChannel")(require("uuid/v4")()); 
+  //const cmdChannel = require("augmented-cqrs/redisChannel")(redisConfig);
+  const cmdChannel = require("augmented-cqrs/inprocChannel")(require("uuid/v4")()); 
     //null, since in this example we are not going to send any command 
                            //back to the sale context
-  //const evtChannel = require("taxman-cqrs/eventstoreChannel")();
-  const evtChannel = require("taxman-cqrs/inprocChannel")(require("uuid/v4")()); //redisChannel because
+  //const evtChannel = require("augmented-cqrs/eventstoreChannel")();
+  const evtChannel = require("augmented-cqrs/inprocChannel")(require("uuid/v4")()); //redisChannel because
   //we will be receiving it from 
 
-  const msgbusCorePromise = require("taxman-cqrs/msgbusCore")(
+  const msgbusCorePromise = require("augmented-cqrs/msgbusCore")(
     globalErrorHandler, {
       cmdChannel, evtChannel
     }
   );
 
   return msgbusCorePromise.then(msgbusCore => {
-    return require("taxman-cqrs/msgbus")(`${appName}.sale`, msgbusCore);
+    return require("augmented-cqrs/msgbus")(`${appName}.sale`, msgbusCore);
   }).catch(err => {
     process.exit(1)
   });
@@ -73,8 +73,8 @@ function createSaleMsgbus() {
 //example of integration with external context by pulling from event-store of external context
 function createSaleMsgbus() {
   const cmdChannel = null;
-  const evtChannel = require("taxman-cqrs/inprocChannel")(require("uuid/v4")());
-  const msgbusCorePromise = require("taxman-cqrs/msgbusCore")(
+  const evtChannel = require("augmented-cqrs/inprocChannel")(require("uuid/v4")());
+  const msgbusCorePromise = require("augmented-cqrs/msgbusCore")(
     globalErrorHandler, {
       cmdChannel, evtChannel
     }
@@ -104,7 +104,7 @@ function createSaleMsgbus() {
     }, 1000);
   }).then(redisClient => {
     return msgbusCorePromise.then(msgbusCore => {
-      const msgbus = require("taxman-cqrs/msgbus")(`${appName}.sale`, msgbusCore);
+      const msgbus = require("augmented-cqrs/msgbus")(`${appName}.sale`, msgbusCore);
       const saleEventStoreConf = {
         type: 'dynamodb',
         eventsTableName: `${appName}-sale-events`,                  // optional
@@ -128,7 +128,7 @@ function createSaleMsgbus() {
           }
         });
       }).then(lastIndex => {
-        return require("taxman-cqrs/eventstoreMsgbus")(
+        return require("augmented-cqrs/eventstoreMsgbus")(
           msgbus, saleEventStoreConf, lastIndex, 4, 10000, 
         (lastIndex) => {
           redisClient.set("LAST_INDEX", lastIndex);
@@ -202,7 +202,7 @@ Promise.all([createDomainMsgbus(), createSaleMsgbus()]).then(([domainMsgbus, sal
     }
   );
 
-  const routingMsgbus = require("taxman-cqrs/routingMsgbus")(msgbusMap);
+  const routingMsgbus = require("augmented-cqrs/routingMsgbus")(msgbusMap);
   const processManagerPromise = require("augmented-cqrs-example-saga")(
     config, routingMsgbus, globalErrorHandler, 
     {
@@ -228,7 +228,7 @@ Promise.all([createDomainMsgbus(), createSaleMsgbus()]).then(([domainMsgbus, sal
 }).then(routingMsgbus => {
   app.get('/', (req, res) => res.send('Hello World!'));
 
-  const messageDispatcher = require("taxman-cqrs/messageDispatcher")();
+  const messageDispatcher = require("augmented-cqrs/messageDispatcher")();
   const requestErrorHandler = (req, res, err) => {
     if (err) {
       res.status(500).json({error: err});

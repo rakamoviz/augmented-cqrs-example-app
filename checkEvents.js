@@ -1,7 +1,7 @@
 var eventstore = require('eventstore');
 
 const appName = "example-app"
-const config = require("taxman-cqrs/configDynamo")(appName);
+const config = require("augmented-cqrs/configDynamo")(appName);
 var es = eventstore(config.eventStoreConf);
 
 es.on('connect', function() {

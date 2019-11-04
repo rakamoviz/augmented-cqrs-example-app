@@ -1,5 +1,5 @@
 node_modules/
-taxman-cqrs
+augmented-cqrs
 example-saga
 example-domain
 cqrs-domain
