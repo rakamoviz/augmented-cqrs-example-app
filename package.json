@@ -1,0 +1,24 @@
+{
+  "name": "augmented-cqrs-example-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.421.0",
+    "command-line-args": "^5.0.2",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "deepmerge": "^3.2.0",
+    "eventstore": "^1.14.4",
+    "express": "^4.16.4",
+    "mongodb": "^3.1.13",
+    "redis": "^2.8.0",
+    "augmented-cqrs-example-domain": "git+https://git@github.com/rakamoviz/augmented-cqrs-example-domain.git",
+    "augmented-cqrs-example-saga": "git+https://git@github.com/rakamoviz/augmented-cqrs-example-saga.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

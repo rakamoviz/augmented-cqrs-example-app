@@ -1,0 +1,23 @@
+{
+  "context": "routemanagement",
+  "name": "moneyTransferRequested",
+  "aggregate": {
+    "name": "moneyTransfer"
+  },
+  "payload": {
+    "amount": 5,
+    "senderAccount": {
+      "id": "specify",
+      "revision": "specify"
+    },
+    "receiverAccount": {
+      "id": "specify",
+      "revision": "specify"
+    }
+  },
+  "meta": {
+    "transactionId": "specify",
+    "userId": 3
+  },
+  "version": 1
+}

@@ -1,0 +1,15 @@
+{
+  "context": "routemanagement",
+  "name": "open",
+  "aggregate": {
+    "name": "account"
+  },
+  "payload": {
+    "owner": "John Doe",
+    "initialBalance": 100
+  },
+  "meta": {
+    "userId": 3
+  },
+  "version": 1
+}

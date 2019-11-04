@@ -1,0 +1,19 @@
+{
+  "context": "sale",
+  "name": "orderUpdatedDeferred",
+  "aggregate": {
+    "name": "order"
+  },
+  "payload": {
+    "seats": 2,
+    "route": {
+      "id": "specify",
+      "revision": "specify"
+    }
+  },
+  "meta": {
+    "transactionId": "specify",
+    "userId": 3
+  },
+  "version": 1
+}

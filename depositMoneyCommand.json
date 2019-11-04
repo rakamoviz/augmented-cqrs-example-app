@@ -1,0 +1,14 @@
+{
+  "context": "routemanagement",
+  "name": "depositMoney",
+  "aggregate": {
+    "name": "account"
+  },
+  "payload": {
+    "amount": 20
+  },
+  "meta": {
+    "userId": 3
+  },
+  "version": 1
+}

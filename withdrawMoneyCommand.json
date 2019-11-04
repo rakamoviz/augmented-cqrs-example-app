@@ -1,0 +1,14 @@
+{
+  "context": "routemanagement",
+  "name": "withdrawMoney",
+  "aggregate": {
+    "name": "account"
+  },
+  "payload": {
+    "amount": 30
+  },
+  "meta": {
+    "userId": 3
+  },
+  "version": 1
+}

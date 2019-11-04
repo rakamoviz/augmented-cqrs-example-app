@@ -1,0 +1,10 @@
+node_modules/
+taxman-cqrs
+example-saga
+example-domain
+cqrs-domain
+eventstore
+cqrs-saga
+node_modules*/
+versi_spanneng/
+dynamosand.js
