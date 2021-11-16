@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "aws-sdk": "^2.421.0",
+    "aws-sdk": "^2.814.0",
     "command-line-args": "^5.0.2",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
